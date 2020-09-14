@@ -1,25 +1,40 @@
 <template>
-  <section class="destination">
-    <h1>{{destination.name}}</h1>
-    <div class="destination-details">
-      <img :src="require(`@/assets/${destination.image}`)" alt="destination.name" />
-    </div>
-    <p>{{destination.description}}</p>
-  </section>
+  <div>
+    <section class="destination">
+      <h1>{{destination.name}}</h1>
+      <div class="destination-details">
+        <img :src="require(`@/assets/${destination.image}`)" alt="destination.name" />
+        <p>{{destination.description}}</p>
+      </div>
+    </section>
+    <section class="experience">
+      <h2>Top experience in {{destination.name}}</h2>
+      <div class="cards">
+        <div v-for="experience in destination.experiences" :key="experience.slug" class="card">
+          <img :src="require(`@/assets/${experience.image}`)" alt="experience.name" />
+          <span class="card-text">{{experience.name}}</span>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
 import store from "@/store/store.js";
 export default {
   data() {
-    return {
-      destinationId: this.$route.params.id
-    };
+    return {};
+  },
+  props: {
+    slug: {
+      type: String,
+      requireed: true
+    }
   },
   computed: {
     destination() {
       return store.destinations.find(
-        destination => destination.id === this.destinationId
+        destination => destination.slug === this.slug
       );
     }
   }
@@ -41,5 +56,25 @@ p {
   margin: 0 4px;
   font-size: 20px;
   text-align: left;
+}
+
+.cards img {
+  max-width: 200px;
+}
+
+.card {
+  padding: 0 20px;
+  position: relative;
+}
+
+.card-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  text-decoration: none;
 }
 </style>

@@ -9,7 +9,7 @@
       <router-link to="/about">About</router-link>
     </div>-->
     <TheNavigation />
-    <router-view />
+    <router-view :key="$route.path" />
   </div>
 </template>
 <script>
