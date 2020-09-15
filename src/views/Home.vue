@@ -51,6 +51,6 @@ a:visited {
 
 .destinations {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 </style>

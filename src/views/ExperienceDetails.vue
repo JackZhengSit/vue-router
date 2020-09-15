@@ -1,7 +1,6 @@
 <template>
   <section>
-    <h1>Experience</h1>
-    <h2>{{Experience.name}}</h2>
+    <h2>{{experience.name}}</h2>
     <div class="experience-details">
       <img :src="require(`@/assets/${experience.image}`)" alt="experience.name" />
       <p>{{experience.description}}</p>
@@ -38,9 +37,16 @@ export default {
 </script>
 
 <style scoped>
+img {
+  max-width: 600px;
+  height: auto;
+  width: 100%;
+  max-height: 400px;
+}
 .experience-details {
   display: flex;
   justify-content: space-between;
+  padding: 40px 0;
 }
 p {
   margin: 0 40px;

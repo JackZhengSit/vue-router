@@ -1,5 +1,6 @@
 <template>
   <div>
+    <GoBack />
     <section class="destination">
       <h1>{{destination.name}}</h1>
       <div class="destination-details">
@@ -9,18 +10,28 @@
     </section>
     <section class="experience">
       <h2>Top experience in {{destination.name}}</h2>
-      <div class="cards">
+      <div class="cards" id="experience">
         <div v-for="experience in destination.experiences" :key="experience.slug" class="card">
-          <img :src="require(`@/assets/${experience.image}`)" alt="experience.name" />
-          <span class="card-text">{{experience.name}}</span>
+          <router-link
+            :to="{
+                name:'experienceDetails',
+                params:{experienceSlug:experience.slug,
+                hash:'#experience'}
+            }"
+          >
+            <img :src="require(`@/assets/${experience.image}`)" alt="experience.name" />
+            <span class="card-text">{{experience.name}}</span>
+          </router-link>
         </div>
       </div>
+      <router-view :key="$route.path"></router-view>
     </section>
   </div>
 </template>
 
 <script>
 import store from "@/store/store.js";
+import GoBack from "@/components/GoBack";
 export default {
   data() {
     return {};
@@ -37,6 +48,9 @@ export default {
         destination => destination.slug === this.slug
       );
     }
+  },
+  components: {
+    GoBack
   }
 };
 </script>
@@ -53,13 +67,19 @@ img {
   justify-content: space-between;
 }
 p {
-  margin: 0 4px;
+  margin: 0 40px;
   font-size: 20px;
   text-align: left;
 }
 
+.cards {
+  display: flex;
+  justify-content: center;
+}
+
 .cards img {
   max-width: 200px;
+  width: 100%;
 }
 
 .card {
@@ -69,7 +89,7 @@ p {
 
 .card-text {
   position: absolute;
-  top: 50%;
+  top: 10%;
   left: 50%;
   transform: translate(-50%, 50%);
   color: white;
